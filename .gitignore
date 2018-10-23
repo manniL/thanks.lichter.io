@@ -1,0 +1,9 @@
+.idea
+node_modules
+npm-debug.log
+.nuxt
+dist
+sw.*
+/webpack.config.js
+/config/api.json
+/config/stripe.json

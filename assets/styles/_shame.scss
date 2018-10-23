@@ -1,0 +1,58 @@
+.sticky {
+  position: sticky;
+}
+
+@variants hover, group-hover {
+  .rotate-45 {
+    transform: rotate(45deg);
+  }
+}
+
+.transition-all-300 {
+  transition: all .3s;
+}
+
+
+.cp-spinner {
+  display: inline-block;
+  box-sizing: border-box;
+  position: relative
+}
+
+.cp-meter {
+  border-radius: 50%;
+  border: 3px solid white;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  box-sizing: border-box
+}
+
+.cp-meter:before {
+  border-radius: 1px;
+  content: " ";
+  width: 3px;
+  height: 14px;
+  display: inline-block;
+  box-sizing: border-box;
+  background-color: white;
+  position: absolute;
+  left: 12px;
+  transform-origin: center bottom;
+  animation: cp-meter-animate-before 1s linear infinite
+}
+
+@keyframes cp-meter-animate-before {
+  0% {
+    transform: rotate(-45deg)
+  }
+  100% {
+    transform: rotate(315deg)
+  }
+}
+
+@variants hover, group-hover {
+  .scale-105 {
+    transform: scale(1.05);
+  }
+}
