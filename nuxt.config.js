@@ -34,18 +34,7 @@ export default {
     prefix: isDev ? '/api/' : undefined
   },
 
-  purgeCSS: {
-    whitelistPatterns: [/cookie-consent/]
-  },
-  /*
-   * Customize the progress bar color
-   */
-  loading: { color: colors.red },
-  loadingIndicator: {
-    name: 'rectangle-bounce',
-    color: 'white',
-    background: colors.red
-  },
+  loading: { color: colors.indigo },
 
   manifest,
   render,
