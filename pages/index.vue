@@ -46,12 +46,60 @@
           </p>
 
           <ul class="mt-4 text-lg">
-            <li>@nuxtjs/redirect-module - Redirect old URLs to keep SEO up</li>
-            <li>@nuxtjs/feed-module - Blog feeds for everyone!</li>
-            <li>@nuxtjs/separate-env-module - Split env values into server/client</li>
-            <li>nuxt-svg-loader - Load SVGs as you'd load Vue components</li>
-            <li>nuxt-purgecss - Delete superfluous CSS</li>
-            <li>You can find more on my own GitHub and company GitHub profile</li>
+            <li>
+              <a
+                rel="noreferrer noopener"
+                target="_blank"
+                class="github-link"
+                href="https://github.com/nuxt-community/redirect-module"
+              >@nuxtjs/redirect-module</a> - Redirect old URLs to keep SEO up
+            </li>
+            <li>
+              <a
+                rel="noreferrer noopener"
+                target="_blank"
+                class="github-link"
+                href="https://github.com/nuxt-community/feed-module"
+              >@nuxtjs/feed-module</a> - Blog feeds for everyone!
+            </li>
+            <li>
+              <a
+                rel="noreferrer noopener"
+                target="_blank"
+                class="github-link"
+                href="https://github.com/nuxt-community/separate-env-module/"
+              >@nuxtjs/separate-env-module</a> - Split env values into server/client
+            </li>
+            <li>
+              <a
+                rel="noreferrer noopener"
+                target="_blank"
+                class="github-link"
+                href="https://github.com/Developmint/nuxt-svg-loader"
+              >nuxt-svg-loader</a> - Load SVGs as you'd load Vue components
+            </li>
+            <li>
+              <a
+                rel="noreferrer noopener"
+                target="_blank"
+                class="github-link"
+                href="https://github.com/Developmint/nuxt-purgecss"
+              >nuxt-purgecss</a> - Delete superfluous CSS
+            </li>
+            <li>You can find more on my
+              <a
+                rel="noreferrer noopener"
+                target="_blank"
+                class="github-link"
+                href="https://github.com/manniL"
+              >own GitHub</a> and
+              <a
+                rel="noreferrer noopener"
+                target="_blank"
+                class="github-link"
+                href="https://github.com/manniL"
+              >company GitHub</a> profile
+            </li>
           </ul>
 
           <p class="mt-6 text-lg">
@@ -79,9 +127,7 @@
           </p>
         </div>
       </div>
-      <h2
-        id="donate"
-        class="text-center text-3xl md:text-4xl mt-8 py-10">Donate</h2>
+      <h2 id="donate" class="text-center text-3xl md:text-4xl mt-8 py-10">Donate</h2>
       <div class="flex flex-col justify-around items-center w-5/6 md:w-2/3 mx-auto text-center">
         <div class="flex-1 text-left">
           <p class="mt-6 text-xl">
