@@ -29,10 +29,7 @@
     "tailwindcss": "^0.6.6",
     "vue-analytics": "^5.16.0",
     "vue-confetti": "^0.4.2",
-    "vue-cookieconsent-component": "^1.2.0",
-    "vue-if-bot": "^1.2.0",
     "vue-next-level-scroll": "^1.2.0",
-    "vue-scroll-reveal": "^1.0.11",
     "vue-stripe-elements-plus": "^0.2.9"
   },
   "devDependencies": {
