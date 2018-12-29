@@ -15,6 +15,7 @@
     <div class="block lg:hidden">
       <button
         class="flex items-center px-3 py-2 border rounded border-grey-darkest hover:text-grey-dark hover:border-grey-dark"
+        title="Menu"
         @click="toggleVisibility"
       >
         <MenuIcon class="fill-current h-3 w-3" />
