@@ -66,7 +66,6 @@
 
 <script>
 import { Card, createToken } from 'vue-stripe-elements-plus'
-import { key, options } from '~/config/stripe.json'
 import { Confetti } from 'vue-confetti'
 
 export default {
@@ -88,8 +87,7 @@ export default {
       error: false,
       invalid: [],
       email: '',
-      stripeOptions: options,
-      key
+      key: process.env.stripePublicKey
     }
   },
   watch: {

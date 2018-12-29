@@ -18,6 +18,10 @@ export default {
   head,
   meta,
 
+  env: {
+    stripePublicKey: process.env.STRIPE_PUBLIC_KEY || ''
+  },
+
   css: [
     '@/assets/styles/app.pcss'
   ],
