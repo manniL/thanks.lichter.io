@@ -5,5 +5,3 @@ npm-debug.log
 dist
 sw.*
 /webpack.config.js
-/config/api.json
-/config/stripe.json

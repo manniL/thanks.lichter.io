@@ -45,7 +45,6 @@
     </span>
     <Card
       :class="{'border-green-dark':complete}"
-      :options="stripeOptions"
       :stripe="key"
       class="rounded px-4 py-2 border mt-2 bg-white shadow-inner text-grey-darkest"
       @change="complete = $event.complete"
@@ -66,7 +65,6 @@
 
 <script>
 import { Card, createToken } from 'vue-stripe-elements-plus'
-import { key, options } from '~/config/stripe.json'
 import { Confetti } from 'vue-confetti'
 
 export default {
@@ -88,8 +86,7 @@ export default {
       error: false,
       invalid: [],
       email: '',
-      stripeOptions: options,
-      key
+      key: process.env.stripePublicKey
     }
   },
   watch: {
@@ -118,6 +115,10 @@ export default {
       this.invalid = []
     },
     async pay() {
+      if (this.loading) {
+        return false
+      }
+
       this.resetFormState()
       if (!this.amount || Number.isNaN(this.amount)) {
         this.invalid.push(['amount'])
@@ -157,10 +158,8 @@ export default {
         const confetti = new Confetti()
         confetti.start({})
         setTimeout(() => confetti.stop(), 5000)
-      } catch (resp) {
-        // eslint-disable-next-line no-console
-        console.log(resp)
-        const { data: { message } } = resp
+      } catch ({ response }) {
+        const { data: { message } } = response
         this.error = message
         this.loading = false
       }
