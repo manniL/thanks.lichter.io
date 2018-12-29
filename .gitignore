@@ -6,3 +6,4 @@ dist
 sw.*
 /webpack.config.js
 /config/api.json
+/functions-dist

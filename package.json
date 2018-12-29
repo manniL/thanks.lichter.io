@@ -7,8 +7,8 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
+    "lambda-build": "netlify-lambda build ./functions",
+    "lambda-serve": "netlify-lambda serve ./functions",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
@@ -17,7 +17,6 @@
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^2.6.0",
     "consola": "^2.3.0",
-    "express": "^4.16.4",
     "nuxt-edge": "^2.4.0-25759244.498c4f11",
     "nuxt-purgecss": "^0.2.0",
     "nuxt-svg-loader": "^0.1.0",
@@ -30,6 +29,7 @@
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "0.0.1",
+    "@nuxtjs/proxy": "^1.3.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.11.1",
     "eslint-config-standard": "^12.0.0",

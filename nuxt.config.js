@@ -2,19 +2,10 @@ import { colors } from './tailwind.js'
 import { build, head, manifest, meta } from './config'
 import { isDev } from './config/utils'
 
-const axios = isDev
-  ? {
-    prefix: '/api/'
-  }
-  : {
-    https: true,
-    baseURL: 'https://thanks.lichter.io/api/'
-  }
-
 export default {
 
   // Watch config subfiles
-  watch: ['~/config/*', '~/api/**/*'],
+  watch: ['~/config/*'],
   head,
   meta,
 
@@ -30,10 +21,19 @@ export default {
     'nuxt-svg-loader',
     '@nuxtjs/pwa',
     '@nuxtjs/axios',
+    isDev ? '@nuxtjs/proxy' : false,
     ['nuxt-purgecss', { mode: 'postcss' }]
   ],
 
-  axios,
+  axios: {
+    https: !isDev,
+    prefix: '/.netlify/functions/'
+  },
+  proxy: {
+    '/.netlify/functions/': {
+      target: 'http://localhost:9000'
+    }
+  },
 
   loading: { color: colors.indigo },
 
