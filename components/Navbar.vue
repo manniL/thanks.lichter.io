@@ -26,6 +26,7 @@
     >
       <div>
         <a
+          rel="noopener"
           class="block mt-4 lg:inline-block lg:mt-0 text-grey-darkest hover:text-black mr-4 lg:mr-6 no-underline cursor-pointer"
           href="https://lichter.io?ref=thanks.lichter.io"
           target="_blank"
@@ -33,6 +34,7 @@
           About me
         </a>
         <a
+          rel="noopener"
           class="block mt-4 lg:inline-block lg:mt-0 text-grey-darkest hover:text-black mr-4 lg:mr-6 no-underline cursor-pointer"
           href="https://blog.lichter.io?ref=thanks.lichter.io"
           target="_blank"
