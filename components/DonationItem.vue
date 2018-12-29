@@ -1,5 +1,8 @@
 <template>
-  <button class="flex flex-col md:flex-row items-center my-8 border border-grey-light shadow-lg p-4 w-full hover:scale-105 transition-all-300">
+  <button
+    class="flex flex-col md:flex-row items-center my-8 border border-grey-light shadow-lg p-4 w-full hover:scale-105 transition-all-300"
+    :name="name"
+  >
     <span class="flex flex-no-shrink flex-col md:mr-8 mb-4 md:mb-0">
       <img v-bind="imageSources" :alt="name" class="rounded-full border border-grey">
     </span>
