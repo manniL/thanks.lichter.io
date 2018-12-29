@@ -21,9 +21,8 @@ export default {
     'nuxt-svg-loader',
     '@nuxtjs/pwa',
     '@nuxtjs/axios',
-    isDev ? '@nuxtjs/proxy' : false,
     ['nuxt-purgecss', { mode: 'postcss' }]
-  ],
+  ].concat(isDev ? '@nuxtjs/proxy' : []),
 
   axios: {
     https: !isDev,
