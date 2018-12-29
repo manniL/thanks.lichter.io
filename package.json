@@ -10,7 +10,7 @@
     "lambda-build": "netlify-lambda build ./functions",
     "lambda-serve": "netlify-lambda serve ./functions",
     "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lint": "eslint --ext .js,.vue .",
     "precommit": "npm run lint"
   },
   "dependencies": {
