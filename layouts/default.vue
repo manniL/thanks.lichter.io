@@ -1,8 +1,8 @@
 <template>
   <div class="bg-grey-lighter text-base text-grey-darkest leading-normal">
-    <navbar/>
-    <nuxt class="mx-auto md:px-0"/>
-    <app-footer/>
+    <Navbar />
+    <Nuxt class="mx-auto md:px-0" />
+    <AppFooter />
   </div>
 </template>
 

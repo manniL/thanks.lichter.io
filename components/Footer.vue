@@ -6,14 +6,16 @@
           href="https://lichter.io/legal"
           rel="nofollow noopener"
           target="_blank"
-          class="inline-block mt-0 mr-2 text-indigo-lightest hover:text-white no-underline">
+          class="inline-block mt-0 mr-2 text-indigo-lightest hover:text-white no-underline"
+        >
           Legal notice
         </a>
         <a
           href="https://lichter.io/privacy"
           rel="nofollow noopener"
           target="_blank"
-          class="inline-block mt-0 text-indigo-lightest hover:text-white no-underline">
+          class="inline-block mt-0 text-indigo-lightest hover:text-white no-underline"
+        >
           Privacy policy
         </a>
       </div>
@@ -23,8 +25,11 @@
           href="https://github.com/manniL/thanks.lichter.io"
           target="_blank"
           rel="noopener"
-        ><span class="mr-1">v{{ $options.version }}</span>
-          <github-icon class="block w-8 h-8 fill-current"/>
+        >
+          <span class="mr-1">
+            v{{ $options.version }}
+          </span>
+          <GithubIcon class="block w-8 h-8 fill-current" />
         </a>
       </div>
     </div>

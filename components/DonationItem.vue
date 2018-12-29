@@ -4,8 +4,10 @@
       <img v-bind="imageSources" :alt="name" class="rounded-full border border-grey">
     </span>
     <span class="text-center md:text-left">
-      <span class="block text-2xl font-bold py-3">{{ textPrice }} — {{ name }}</span>
-      <span v-text="description"/>
+      <span class="block text-2xl font-bold py-3">
+        {{ textPrice }} — {{ name }}
+      </span>
+      <span v-text="description" />
     </span>
   </button>
 </template>

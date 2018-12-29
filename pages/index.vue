@@ -1,24 +1,27 @@
 <template>
   <div class="bg-grey-lighter">
     <section class="flex flex-col justify-center items-center flex-wrap pb-16">
-      <h1 class="text-center text-3xl md:text-4xl py-10">Your support is powerful!</h1>
+      <h1 class="text-center text-3xl md:text-4xl py-10">
+        Your support is powerful!
+      </h1>
       <div class="flex flex-col md:flex-row justify-around items-center w-5/6 md:w-2/3 mx-auto text-center">
         <div class="flex-1">
           <div>
             <img
+              alt="Alexander Lichter"
+              class="rounded-full border-solid border-4 border-grey-light shadow-lg mb-2 w-64 h-64"
               src="/img/me.jpg"
               srcset="/img/me@2x.jpg 2x"
-              alt="Alexander Lichter"
-              class="rounded-full border-solid border-4 border-grey-light shadow-lg mb-2 w-64 h-64">
+            >
             <p class="mb-2 font-light text-lg md:text-2xl">
               Alexander Lichter
             </p>
           </div>
-          <vue-next-level-scroll target="#donate">
+          <VueNextLevelScroll target="#donate">
             <button class="mt-16 bg-green hover:bg-green-light px-8 py-4 rounded-full text-white text-2xl shadow-lg border border-green-light">
               Donate 🙏
             </button>
-          </vue-next-level-scroll>
+          </VueNextLevelScroll>
         </div>
         <div class="flex-1 text-left">
           <p class="mt-6 text-lg">
@@ -26,8 +29,11 @@
             <a
               class="no-underline text-green-dark hover:underline"
               href="https://github.com/nuxt/nuxt.js#core-team"
+              rel="noreferrer noopener"
               target="_blank"
-              rel="noreferrer noopener">Nuxt.js</a>
+            >
+              Nuxt.js
+            </a>
             core team member. But since you're on this page, you probably already know this.
           </p>
           <p class="mt-6 text-lg">
@@ -36,9 +42,10 @@
             <a
               class="no-underline text-blue-light hover:underline"
               href="http://twitter.com/TheAlexLichter"
-              target="_blank"
               rel="noreferrer noopener"
-            >Twitter</a>, writing blog posts and guides about programming topics and maintaining several packages.
+              target="_blank"
+              v-text="'Twitter'"
+            />, writing blog posts and guides about programming topics and maintaining several packages.
           </p>
           <p class="mt-6 text-lg">
             Besides working on the Nuxt.js core, I've created a hand full of modules to make the developer's lives
@@ -48,129 +55,154 @@
           <ul class="mt-4 text-lg">
             <li>
               <a
-                rel="noreferrer noopener"
-                target="_blank"
                 class="github-link"
                 href="https://github.com/nuxt-community/redirect-module"
-              >@nuxtjs/redirect-module</a> - Redirect old URLs to keep SEO up
+                rel="noreferrer noopener"
+                target="_blank"
+                v-text="'@nuxtjs/redirect-module'"
+              /> - Redirect old URLs to keep SEO up
             </li>
             <li>
               <a
-                rel="noreferrer noopener"
-                target="_blank"
                 class="github-link"
                 href="https://github.com/nuxt-community/feed-module"
-              >@nuxtjs/feed-module</a> - Blog feeds for everyone!
+                rel="noreferrer noopener"
+                target="_blank"
+                v-text="'@nuxtjs/feed-module'"
+              /> - Blog feeds for everyone!
             </li>
             <li>
               <a
-                rel="noreferrer noopener"
-                target="_blank"
                 class="github-link"
                 href="https://github.com/nuxt-community/separate-env-module/"
-              >@nuxtjs/separate-env-module</a> - Split env values into server/client
+                rel="noreferrer noopener"
+                target="_blank"
+                v-text="'@nuxtjs/separate-env-module'"
+              /> - Split env values into server/client
             </li>
             <li>
               <a
-                rel="noreferrer noopener"
-                target="_blank"
                 class="github-link"
                 href="https://github.com/Developmint/nuxt-svg-loader"
-              >nuxt-svg-loader</a> - Load SVGs as you'd load Vue components
+                rel="noreferrer noopener"
+                target="_blank"
+                v-text="'nuxt-svg-loader'"
+              /> - Load SVGs as you'd load Vue components
             </li>
             <li>
               <a
-                rel="noreferrer noopener"
-                target="_blank"
                 class="github-link"
                 href="https://github.com/Developmint/nuxt-purgecss"
-              >nuxt-purgecss</a> - Delete superfluous CSS
+                rel="noreferrer noopener"
+                target="_blank"
+                v-text="'nuxt-purgecss'"
+              /> - Delete superfluous CSS
             </li>
-            <li>You can find more on my
+            <li>
+              You can find more on my
               <a
-                rel="noreferrer noopener"
-                target="_blank"
                 class="github-link"
                 href="https://github.com/manniL"
-              >own GitHub</a> and
-              <a
                 rel="noreferrer noopener"
                 target="_blank"
+                v-text="'own GitHub'"
+              /> and
+              <a
                 class="github-link"
-                href="https://github.com/manniL"
-              >company GitHub</a> profile
+                href="https://github.com/Developmint"
+                rel="noreferrer noopener"
+                target="_blank"
+                v-text="'company GitHub'"
+              /> profile
             </li>
           </ul>
 
           <p class="mt-6 text-lg">
-            I'm doing all of this in my <span class="font-bold">free time</span>! But I'd love to work on all these
-            things <span class="font-bold">full time</span> one day.
+            I'm doing all of this in my <span class="font-bold" v-text="'free time'" />!
+            But I'd love to work on all these
+            things <span class="font-bold" v-text="'full time'" /> one day.
           </p>
         </div>
       </div>
       <h2
         id="say-thanks"
-        class="text-center text-3xl md:text-4xl mt-8 py-10">Say thanks</h2>
+        class="text-center text-3xl md:text-4xl mt-8 py-10"
+      >
+        Say thanks
+      </h2>
       <div class="flex justify-around items-center w-5/6 md:w-2/3 mx-auto text-center">
         <div class="flex-1 text-left">
           <p class="mt-6 text-xl">
-            I really appreciate kind words or a simple <span class="text-black">thank you</span> a lot!
+            I really appreciate kind words or a simple <span class="text-black" v-text="'thank you'" /> a lot!
             This is what keeps me motivated (even on a bad Monday). Same goes for sharing my content or starring one of
             my libraries.
             <br><br>
             Unfortunately, I have to make a living somehow as well. On the one hand, I am offering Nuxt.js consulting
             through my company Developmint. However, if you know a company that needs help, code reviews, feedback, best
             practices or an external audit, feel free to pass my website along so they can
-            <span class="font-bold">hire me</span>!
+            <span class="font-bold" v-text="'hire me'" />!
             <br>
             As it's in the nature of consulting, this is a very unsteady and unreliable kind of income though....
           </p>
         </div>
       </div>
-      <h2 id="donate" class="text-center text-3xl md:text-4xl mt-8 py-10">Donate</h2>
+      <h2 id="donate" class="text-center text-3xl md:text-4xl mt-8 py-10">
+        Donate
+      </h2>
       <div class="flex flex-col justify-around items-center w-5/6 md:w-2/3 mx-auto text-center">
         <div class="flex-1 text-left">
           <p class="mt-6 text-xl">
             If you think my community work and effort is worth a small donation, then here comes the opportunity!<br>
-            <span class="font-bold">Every donation, no matter how small</span> helps me to cover the bills and to invest
+            <span class="font-bold">
+              Every donation, no matter how small
+            </span> helps me to
+            cover the bills and to invest
             more time into open-source,
             the Nuxt ecosystem and helping out people.
           </p>
           <div class="mt-16 md:mt-32">
-            <vue-next-level-scroll
+            <VueNextLevelScroll
               v-for="(item, i) in $options.donationItems"
               :key="i"
-              target="#donationform">
-              <donation-item
+              target="#donationform"
+            >
+              <DonationItem
                 v-bind="item"
-                @click.native="changeDonationType(item)"/>
-            </vue-next-level-scroll>
+                @click.native="changeDonationType(item)"
+              />
+            </VueNextLevelScroll>
           </div>
         </div>
       </div>
       <div class="flex py-8 flex-col justify-around items-center w-5/6 md:w-2/3 mx-auto text-center">
-        <donation-form :donation-type="donationType" @completed="showThanks = true"/>
+        <DonationForm :donation-type="donationType" @completed="showThanks = true" />
       </div>
       <div
         v-if="showThanks"
-        class="flex flex-col py-8 justify-around items-center w-5/6 md:w-2/3 mx-auto text-center md:mt-8 bg-white shadow-inner">
+        class="flex flex-col py-8 justify-around items-center w-5/6 md:w-2/3 mx-auto text-center md:mt-8 bg-white shadow-inner"
+      >
         <p class="text-lg">
-          <span class="font-bold text-4xl">Thank you for your Donation!</span><br>
+          <span class="font-bold text-4xl">
+            Thank you for your Donation!
+          </span><br>
           People like you help the open-source community to stay alive and grow 😍
         </p>
       </div>
       <div class="flex flex-col py-8 justify-around items-center w-5/6 md:w-2/3 mx-auto text-center md:mt-8">
         <div class="mb-8">
-          <h3 class="text-center text-3xl md:text-4xl mt-8 py-10">Don't own a credit card?</h3>
+          <h3 class="text-center text-3xl md:text-4xl mt-8 py-10">
+            Don't own a credit card?
+          </h3>
           <p>Supporting me via Wire Transfer is also possible!</p>
         </div>
         <div class="flex flex-col font-mono md:w-1/3 flex-no-shrink">
           <div
             v-for="([k,v]) in $options.bankDetails"
             :key="k"
-            class="flex my-2 md:my-0">
-            <div class="w-1/3 text-left" v-text="k"/>
-            <div class="w-2/3 text-right" v-text="v"/>
+            class="flex my-2 md:my-0"
+          >
+            <div class="w-1/3 text-left" v-text="k" />
+            <div class="w-2/3 text-right" v-text="v" />
           </div>
         </div>
       </div>

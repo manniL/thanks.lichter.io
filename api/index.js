@@ -5,7 +5,5 @@ const app = express()
 app.use(express.json())
 app.use(routes)
 
-export default {
-  path: '/api',
-  handler: app
-}
+// Workaround until https://github.com/nuxt/nuxt.js/pull/4656
+export default app

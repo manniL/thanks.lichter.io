@@ -1,6 +1,15 @@
 import { colors } from './tailwind.js'
-import { build, head, manifest, meta, render } from './config'
+import { build, head, manifest, meta } from './config'
 import { isDev } from './config/utils'
+
+const axios = isDev
+  ? {
+    prefix: '/api/'
+  }
+  : {
+    https: true,
+    baseURL: 'https://thanks.lichter.io/api/'
+  }
 
 export default {
 
@@ -14,29 +23,21 @@ export default {
   ],
 
   serverMiddleware: [
-    '~/api/index.js'
+    // TODO: Workaround until https://github.com/nuxt/nuxt.js/pull/4656 is merged
+    { path: '/api', handler: '~/api/index.js' }
   ],
-
-  /*
-   * Modules
-   */
 
   modules: [
     'nuxt-svg-loader',
     '@nuxtjs/pwa',
     '@nuxtjs/axios',
-    'nuxt-purgecss'
+    ['nuxt-purgecss', { mode: 'postcss' }]
   ],
 
-  axios: {
-    https: !isDev,
-    baseURL: isDev ? undefined : 'https://thanks.lichter.io/api/',
-    prefix: isDev ? '/api/' : undefined
-  },
+  axios,
 
   loading: { color: colors.indigo },
 
   manifest,
-  render,
   build
 }

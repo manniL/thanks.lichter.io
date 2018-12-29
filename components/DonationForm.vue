@@ -1,53 +1,65 @@
 <template>
   <form id="donationform" class="flex flex-col" @submit.prevent="pay">
-    <h2 class="text-center text-3xl md:text-4xl mt-8 py-10">Please enter your credit card details</h2>
+    <h2 class="text-center text-3xl md:text-4xl mt-8 py-10">
+      Please enter your credit card details
+    </h2>
 
     <label class="text-md md:text-xl py-4 flex flex-col md:flex-row justify-between items-center">
-      <span class="font-bold">Donation Amount (in Euro):</span>
+      <span class="font-bold">
+        Donation Amount (in Euro):
+      </span>
       <input
         v-model="amount"
         class="appearance-none text-right px-3 py-2 shadow-inner border"
-        type="number"
         lang="en-150"
-        min="0.50"
         max="10000.00"
+        min="0.50"
+        placeholder="13.37"
         step="0.01"
-        placeholder="13.37">
+        type="number"
+      >
     </label>
     <label ref="email" class="text-lg md:text-xl py-4 flex flex-col md:flex-row justify-between items-center">
-      <span class="font-bold">Your e-mail (optional):</span>
+      <span class="font-bold">
+        Your e-mail (optional):
+      </span>
       <input
         v-model="email"
-        type="email"
+        class="appearance-none text-right px-3 py-2 shadow-inner border"
         placeholder="you@areaweso.me"
-        class="appearance-none text-right px-3 py-2 shadow-inner border">
+        type="email"
+      >
     </label>
     <label class="text-md md:text-xl py-4 flex flex-col md:flex-row justify-between items-center">
-      <span class="font-bold">Leave me a message (optional):</span>
+      <span class="font-bold">
+        Leave me a message (optional):
+      </span>
       <input
         v-model="message"
+        class="appearance-none text-right px-3 py-2 shadow-inner border"
         placeholder="<3"
-        class="appearance-none text-right px-3 py-2 shadow-inner border">
+      >
     </label>
-    <span class="text-md md:hidden mt-8 font-bold">Credit Card Info</span>
-    <card
+    <span class="text-md md:hidden mt-8 font-bold">
+      Credit Card Info
+    </span>
+    <Card
+      :class="{'border-green-dark':complete}"
       :options="stripeOptions"
       :stripe="key"
-      :class="{'border-green-dark':complete}"
       class="rounded px-4 py-2 border mt-2 bg-white shadow-inner text-grey-darkest"
       @change="complete = $event.complete"
     />
     <p class="text-sm text-grey-darker mt-2">
       Don't worry. Payments are processed through Stripe
     </p>
-    <p v-if="error" class="text-lg text-red-dark my-5" v-text="error"/>
+    <p v-if="error" class="text-lg text-red-dark my-5" v-text="error" />
 
     <button class="bg-green hover:bg-green-light px-16 py-4 rounded-full text-white text-2xl w-auto mx-auto shadow-lg border border-green-light mt-8">
-      <span v-if="!loading">Donate ❤️</span>
-      <span
-        v-else
-        class="cp-spinner cp-meter h-16 w-16"
-      />
+      <span v-if="!loading">
+        Donate ❤️
+      </span>
+      <span v-else class="cp-spinner cp-meter h-16 w-16" />
     </button>
   </form>
 </template>
@@ -145,7 +157,10 @@ export default {
         const confetti = new Confetti()
         confetti.start({})
         setTimeout(() => confetti.stop(), 5000)
-      } catch ({ response: { data: { message } } }) {
+      } catch (resp) {
+        // eslint-disable-next-line no-console
+        console.log(resp)
+        const { data: { message } } = resp
         this.error = message
         this.loading = false
       }
