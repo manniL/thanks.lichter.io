@@ -22,11 +22,6 @@ export default {
     '@/assets/styles/app.pcss'
   ],
 
-  serverMiddleware: [
-    // TODO: Workaround until https://github.com/nuxt/nuxt.js/pull/4656 is merged
-    { path: '/api', handler: '~/api/index.js' }
-  ],
-
   modules: [
     'nuxt-svg-loader',
     '@nuxtjs/pwa',
