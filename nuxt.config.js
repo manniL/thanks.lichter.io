@@ -3,7 +3,10 @@ import { build, head, manifest, meta } from './config'
 import { isDev } from './config/utils'
 
 export default {
-
+  modern: 'client',
+  generate: {
+    fallback: true
+  },
   // Watch config subfiles
   watch: ['~/config/*'],
   head,
