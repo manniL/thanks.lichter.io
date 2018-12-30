@@ -3,8 +3,8 @@ export default {
 
   postcss: {
     plugins: {
-      'postcss-nesting': {},
-      tailwindcss: './tailwind.js'
+      tailwindcss: './tailwind.js',
+      'postcss-nesting': {}
     }
   },
 
