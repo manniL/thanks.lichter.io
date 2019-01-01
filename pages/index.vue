@@ -31,9 +31,8 @@
               href="https://github.com/nuxt/nuxt.js#core-team"
               rel="noreferrer noopener"
               target="_blank"
-            >
-              Nuxt.js
-            </a>
+              v-text="'Nuxt.js'"
+            />
             core team member. But since you're on this page, you probably already know this.
           </p>
           <p class="mt-6 text-lg">
@@ -78,7 +77,7 @@
                 rel="noreferrer noopener"
                 target="_blank"
                 v-text="'@nuxtjs/separate-env-module'"
-              /> - Split env values into server/client
+              /> - Separate env values into server/client ones
             </li>
             <li>
               <a
@@ -119,7 +118,7 @@
 
           <p class="mt-6 text-lg">
             I'm doing all of this in my <span class="font-bold" v-text="'free time'" />!
-            But I'd love to work on all these
+            But I'd love to work on all these awesome
             things <span class="font-bold" v-text="'full time'" /> one day.
           </p>
         </div>
@@ -133,16 +132,16 @@
       <div class="flex justify-around items-center w-5/6 md:w-2/3 mx-auto text-center">
         <div class="flex-1 text-left">
           <p class="mt-6 text-xl">
-            I really appreciate kind words or a simple <span class="text-black" v-text="'thank you'" /> a lot!
+            I very much appreciate kind words or a simple <span class="text-black" v-text="'thank you'" />!
             This is what keeps me motivated (even on a bad Monday). Same goes for sharing my content or starring one of
-            my libraries.
+            my creations.
             <br><br>
             Unfortunately, I have to make a living somehow as well. On the one hand, I am offering Nuxt.js consulting
             through my company Developmint. However, if you know a company that needs help, code reviews, feedback, best
             practices or an external audit, feel free to pass my website along so they can
             <span class="font-bold" v-text="'hire me'" />!
             <br>
-            As it's in the nature of consulting, this is a very unsteady and unreliable kind of income though....
+            But as you probably can imagine the income is somewhat unsteady and unreliable&#8230;
           </p>
         </div>
       </div>
