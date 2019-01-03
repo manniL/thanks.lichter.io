@@ -16,8 +16,8 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^2.6.0",
-    "consola": "^2.3.0",
-    "nuxt-edge": "^2.4.0-25759244.498c4f11",
+    "consola": "^2.3.1",
+    "nuxt-edge": "^2.4.0-25774564.438b430a",
     "nuxt-purgecss": "^0.2.0",
     "nuxt-svg-loader": "^0.1.0",
     "postcss-nesting": "^7.0.0",
