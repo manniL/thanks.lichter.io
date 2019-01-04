@@ -20,7 +20,7 @@
     "nuxt-edge": "^2.4.0-25774564.438b430a",
     "nuxt-purgecss": "^0.2.0",
     "nuxt-svg-loader": "^0.1.0",
-    "postcss-nesting": "^7.0.0",
+    "postcss-nested": "^4.1.1",
     "stripe": "^6.20.0",
     "tailwindcss": "^0.7.3",
     "vue-confetti": "^0.4.2",

@@ -4,7 +4,7 @@ export default {
   postcss: {
     plugins: {
       tailwindcss: './tailwind.js',
-      'postcss-nesting': {}
+      'postcss-nested': {}
     }
   },
 
