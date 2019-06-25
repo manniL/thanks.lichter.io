@@ -8953,10 +8953,10 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vue-confetti@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/vue-confetti/-/vue-confetti-0.5.1.tgz#21f877c8b6ab7d5ce970297ed9b15a58946a5a21"
-  integrity sha512-UKnhub6EPr8UiYhw6xliC464umVd0m/qXMcIwcTR9msJTyqdXRCMVZ4vsyRuosyBM569YgnIgmWFP8mTdVKv0Q==
+vue-confetti@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/vue-confetti/-/vue-confetti-2.0.1.tgz#ff69292058225ca5737765f77d79846d152ebd59"
+  integrity sha512-2fdNxZj3K7V50rtizgXklj4xFGsG0rkWhtOKyZ35xyS6CzpWcovQj1fgcaEEMVfMXYucm5M4B3wXvS84ngEQnQ==
 
 vue-eslint-parser@^5.0.0:
   version "5.0.0"
