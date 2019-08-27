@@ -1,6 +1,6 @@
 <template>
   <button
-    class="flex flex-col md:flex-row items-center my-8 border border-grey-light shadow-lg p-4 w-full hover:scale-105 transition-all-300"
+    class="flex flex-col md:flex-row items-center my-8 border border-grey-light hover:border-grey-dark hover:border-2 shadow-lg p-4 w-full hover:shadow-2xl transition-all-300"
     :name="name"
   >
     <span class="flex flex-no-shrink flex-col md:mr-8 mb-4 md:mb-0">
@@ -37,14 +37,15 @@ export default {
     }
   },
   computed: {
-    textPrice() {
-      if (this.price !== -1) {
-        const euro = this.price / 100
-        return `${euro.toFixed(2).toLocaleString()} €`
+    textPrice () {
+      if (this.price === -1) {
+        return '???? €'
       }
-      return '???? €'
+
+      const euro = this.price / 100
+      return `${euro.toFixed(2).toLocaleString()} €`
     },
-    imageSources() {
+    imageSources () {
       return {
         src: require(`~/assets/donations/${this.slug}.png`),
         srcset: `${require(`~/assets/donations/${this.slug}@2x.png`)} 2x`

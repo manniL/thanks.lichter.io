@@ -3,12 +3,11 @@ export default {
 
   postcss: {
     plugins: {
-      tailwindcss: './tailwind.js',
       'postcss-nested': {}
     }
   },
 
-  extend(config, ctx) {
+  extend (config, ctx) {
     if (ctx.isClient) {
       if (ctx.isDev) {
         config.module.rules.push({

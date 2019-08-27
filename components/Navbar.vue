@@ -56,13 +56,13 @@ export default {
     MenuIcon: () => import('~/assets/icons/menu.svg'),
     VueNextLevelScroll
   },
-  data() {
+  data () {
     return {
       isVisible: false
     }
   },
   methods: {
-    toggleVisibility() {
+    toggleVisibility () {
       this.isVisible = !this.isVisible
     }
   }

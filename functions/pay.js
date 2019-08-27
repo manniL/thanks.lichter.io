@@ -1,9 +1,13 @@
 /* eslint-disable no-console */
 import stripeLib from 'stripe'
 
-const { STRIPE_SECRET_KEY } = process.env
+const isDev = process.env.NODE_ENV !== 'production'
 
-console.log('SECRET', STRIPE_SECRET_KEY)
+function retrieveKey () {
+  return isDev ? 'sk_test_dBicKVv5s1znvk1y0GE9dnTr' : process.env.STRIPE_SECRET_KEY
+}
+
+const STRIPE_SECRET_KEY = retrieveKey()
 
 const stripe = stripeLib(STRIPE_SECRET_KEY)
 

@@ -1,4 +1,4 @@
-import { colors } from '../tailwind'
+import { colors } from './tailwind-values'
 
 export default {
   name: 'thanks.Lichter.io - Thank you for thanking me!',
