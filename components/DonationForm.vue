@@ -10,7 +10,7 @@
       </span>
       <input
         v-model="amount"
-        class="appearance-none text-right px-3 py-2 shadow-inner border"
+        class="appearance-none text-right px-3 py-2 shadow-inner border border-grey-light"
         lang="en-150"
         max="10000.00"
         min="0.50"
@@ -25,7 +25,7 @@
       </span>
       <input
         v-model="email"
-        class="appearance-none text-right px-3 py-2 shadow-inner border"
+        class="appearance-none text-right px-3 py-2 shadow-inner border border-grey-light"
         placeholder="you@areaweso.me"
         type="email"
       >
@@ -36,7 +36,7 @@
       </span>
       <input
         v-model="message"
-        class="appearance-none text-right px-3 py-2 shadow-inner border"
+        class="appearance-none text-right px-3 py-2 shadow-inner border border-grey-light"
         placeholder="<3"
       >
     </label>
@@ -44,9 +44,9 @@
       Credit Card Info
     </span>
     <Card
-      :class="{'border-green-dark':complete}"
-      :stripe="key"
-      class="rounded px-4 py-2 border mt-2 bg-white shadow-inner text-grey-darkest"
+      :class="{ 'border-green-dark': complete }"
+      :stripe="$options.stripeKey"
+      class="rounded px-4 py-2 border border-grey-light mt-2 bg-white shadow-inner text-grey-darkest"
       @change="complete = $event.complete"
     />
     <p class="text-sm text-grey-darker mt-2">
@@ -65,7 +65,6 @@
 
 <script>
 import { Card, createToken } from 'vue-stripe-elements-plus'
-import { Confetti } from 'vue-confetti'
 
 export default {
   components: {
@@ -77,7 +76,7 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       complete: false,
       message: '',
@@ -85,12 +84,11 @@ export default {
       loading: false,
       error: false,
       invalid: [],
-      email: '',
-      key: process.env.stripePublicKey
+      email: ''
     }
   },
   watch: {
-    donationType(type) {
+    donationType (type) {
       if (!type) {
         return
       }
@@ -103,24 +101,27 @@ export default {
     }
   },
   methods: {
-    resetFormData() {
+    resetFormData () {
       this.resetFormState()
       this.amount = undefined
       this.email = ''
       this.message = ''
     },
-    resetFormState() {
+    resetFormState () {
       this.loading = false
       this.error = false
       this.invalid = []
     },
-    async pay() {
+    async pay () {
       if (this.loading) {
         return false
       }
 
       this.resetFormState()
-      if (!this.amount || Number.isNaN(this.amount)) {
+
+      const isNumberInvalid = !this.amount || Number.isNaN(this.amount)
+
+      if (isNumberInvalid) {
         this.invalid.push(['amount'])
       }
 
@@ -146,11 +147,14 @@ export default {
       this.loading = true
 
       try {
-        await this.$axios.$post('pay', { token, amount, donationType: this.donationType.slug, email, message }, {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
+        const [{ Confetti }] = await Promise.all([
+          import('vue-confetti'),
+          this.$axios.$post('pay', { token, amount, donationType: this.donationType.slug, email, message }, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+        ])
         this.loading = false
 
         this.resetFormData()
@@ -164,6 +168,7 @@ export default {
         this.loading = false
       }
     }
-  }
+  },
+  stripeKey: process.env.stripePublicKey
 }
 </script>

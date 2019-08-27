@@ -1,9 +1,9 @@
-import { colors } from './tailwind.js'
+import { colors } from './config/tailwind-values'
 import { build, head, manifest, meta } from './config'
 import { isDev } from './config/utils'
 
 export default {
-  modern: 'client',
+  modern: !isDev && 'client',
   generate: {
     fallback: true
   },
@@ -13,24 +13,26 @@ export default {
   meta,
 
   env: {
-    stripePublicKey: process.env.STRIPE_PUBLIC_KEY || ''
+    stripePublicKey: isDev ? 'pk_test_9hUFtiNMcseCbvLBySY7D8P6' : (process.env.STRIPE_PUBLIC_KEY || '')
   },
-
-  css: [
-    '@/assets/styles/app'
-  ],
 
   modules: [
     'nuxt-svg-loader',
     '@nuxtjs/pwa',
     '@nuxtjs/axios',
-    ['nuxt-purgecss', { mode: 'postcss' }]
-  ].concat(isDev ? '@nuxtjs/proxy' : []),
+    '@nuxtjs/tailwindcss'
+  ].concat(isDev ? '@nuxtjs/proxy' : ['nuxt-purgecss', { mode: 'postcss' }]),
 
   axios: {
     https: !isDev,
     prefix: '/.netlify/functions/'
   },
+
+  tailwindcss: {
+    configPath: '~/config/tailwind.js',
+    cssPath: '~/assets/styles/app.pcss'
+  },
+
   proxy: {
     '/.netlify/functions/': {
       target: 'http://localhost:9000'

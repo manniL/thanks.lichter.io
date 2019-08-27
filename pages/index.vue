@@ -4,26 +4,26 @@
       <h1 class="text-center text-3xl md:text-4xl py-10">
         Your support is powerful!
       </h1>
-      <div class="flex flex-col md:flex-row justify-around items-center w-5/6 md:w-2/3 mx-auto text-center">
-        <div class="flex-1">
-          <div>
+      <div class="flex flex-col md:flex-row justify-around items-center w-5/6 md:w-2/3 mx-auto">
+        <div class="flex-1 text-center">
+          <div class="flex flex-col items-center">
             <img
               alt="Alexander Lichter"
-              class="rounded-full border-solid border-4 border-grey-light shadow-lg mb-2 w-64 h-64"
+              class="rounded-full border border-grey-dark shadow-2xl mb-2 w-64 h-64"
               src="/img/me.jpg"
               srcset="/img/me@2x.jpg 2x"
             >
-            <p class="mb-2 font-light text-lg md:text-2xl">
+            <p class="mt-4 font-light text-lg md:text-2xl">
               Alexander Lichter
             </p>
           </div>
           <VueNextLevelScroll target="#donate">
-            <button class="mt-16 bg-green hover:bg-green-light px-8 py-4 rounded-full text-white text-2xl shadow-lg border border-green-light">
+            <button class="mt-12 bg-green hover:bg-green-light px-8 py-4 rounded-full text-white text-2xl shadow-lg border border-green-light">
               Donate 🙏
             </button>
           </VueNextLevelScroll>
         </div>
-        <div class="flex-1 text-left">
+        <div class="flex-1">
           <p class="mt-6 text-lg">
             👋 Hey! I am Alex, a freelance web developer and
             <a
@@ -44,14 +44,20 @@
               rel="noreferrer noopener"
               target="_blank"
               v-text="'Twitter'"
-            />, writing blog posts and guides about programming topics and maintaining several packages.
+            />, writing <a
+              class="underline hover:no-underline"
+              href="https://blog.lichter.io/?ref=thanks.lichter.io"
+              rel="noopener"
+              target="_blank"
+              v-text="'blog posts'"
+            /> and guides about programming topics and maintaining several packages.
           </p>
           <p class="mt-6 text-lg">
             Besides working on the Nuxt.js core, I've created a hand full of modules to make the developer's lives
             easier:
           </p>
 
-          <ul class="mt-4 text-lg">
+          <ul class="mt-4 text-lg list-disc pl-10">
             <li>
               <a
                 class="github-link"
@@ -216,7 +222,7 @@ export default {
     DonationItem: () => import('~/components/DonationItem'),
     DonationForm: () => import('~/components/DonationForm')
   },
-  data() {
+  data () {
     return {
       donationType: {
         slug: 'none',
@@ -226,7 +232,7 @@ export default {
     }
   },
   methods: {
-    changeDonationType(type) {
+    changeDonationType (type) {
       this.donationType = type
     }
   },
