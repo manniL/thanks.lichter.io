@@ -21,11 +21,12 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/axios',
     '@nuxtjs/tailwindcss'
-  ].concat(isDev ? '@nuxtjs/proxy' : ['nuxt-purgecss', { mode: 'postcss' }]),
+  ].concat(),
 
   axios: {
     https: !isDev,
-    prefix: '/.netlify/functions/'
+    prefix: '/.netlify/functions/',
+    proxy: isDev
   },
 
   tailwindcss: {
