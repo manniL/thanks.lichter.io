@@ -1,5 +1,5 @@
 <template>
-  <form id="donationform" class="flex flex-col" @submit.prevent="handlePayment">
+  <form @submit.prevent="handlePayment" class="flex flex-col" id="donationform">
     <h2 class="text-center text-3xl md:text-4xl mt-8 py-10">
       Please enter your credit card details
     </h2>
@@ -9,7 +9,6 @@
         Donation Amount (in Euro):
       </span>
       <input
-        v-model="amount"
         class="appearance-none text-right px-3 py-2 shadow-inner border border-grey-light"
         lang="en-150"
         max="10000.00"
@@ -17,17 +16,18 @@
         placeholder="13.37"
         step="0.01"
         type="number"
+        v-model="amount"
       >
     </label>
-    <label ref="email" class="text-lg md:text-xl py-4 flex flex-col md:flex-row justify-between items-center">
+    <label class="text-lg md:text-xl py-4 flex flex-col md:flex-row justify-between items-center" ref="email">
       <span class="font-bold">
         Your e-mail (optional):
       </span>
       <input
-        v-model="email"
         class="appearance-none text-right px-3 py-2 shadow-inner border border-grey-light"
         placeholder="you@areaweso.me"
         type="email"
+        v-model="email"
       >
     </label>
     <label class="text-md md:text-xl py-4 flex flex-col md:flex-row justify-between items-center">
@@ -35,9 +35,9 @@
         Leave me a message (optional):
       </span>
       <input
-        v-model="message"
         class="appearance-none text-right px-3 py-2 shadow-inner border border-grey-light"
         placeholder="<3"
+        v-model="message"
       >
     </label>
     <span class="text-md md:hidden mt-8 font-bold">
@@ -46,25 +46,25 @@
     <Card
       :class="{ 'border-green-dark': complete }"
       :stripe="$options.stripeKey"
-      class="rounded px-4 py-2 border border-grey-light mt-2 bg-white shadow-inner text-grey-darkest"
       @change="complete = $event.complete"
+      class="rounded px-4 py-2 border border-grey-light mt-2 bg-white shadow-inner text-grey-darkest"
     />
     <p class="text-sm text-grey-darker mt-2">
       Don't worry. Payments are processed through Stripe
     </p>
-    <p v-if="error" class="text-lg text-red-dark my-5" v-text="error" />
+    <p class="text-lg text-red-dark my-5" v-if="error" v-text="error" />
 
     <button class="bg-green hover:bg-green-light px-16 py-4 rounded-full text-white text-2xl w-auto mx-auto shadow-lg border border-green-light mt-8">
       <span v-if="!loading">
         Donate ❤️
       </span>
-      <span v-else class="cp-spinner cp-meter h-16 w-16" />
+      <span class="cp-spinner cp-meter h-16 w-16" v-else />
     </button>
   </form>
 </template>
 
 <script>
-import { Card, createToken } from 'vue-stripe-elements-plus'
+import { Card, handleCardPayment } from 'vue-stripe-elements-plus'
 
 export default {
   components: {
@@ -160,31 +160,37 @@ export default {
       return true
     },
     async charge () {
-      const { token } = await createToken()
-      const { email, message, amountInCents: amount } = this
       this.loading = true
+      const { email, message, amountInCents: amount } = this
 
-      try {
-        const [{ Confetti }] = await Promise.all([
-          import('vue-confetti'),
-          this.$axios.$post('pay', { token, amount, donationType: this.donationType.slug, email, message }, {
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          })
-        ])
-        this.loading = false
+      const { secret } = await this.$axios.$post('register-intent', {
+        amount,
+        donationType: this.donationType.slug,
+        email,
+        message
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const [{ error }, { Confetti }] = await Promise.all([handleCardPayment(secret), import('vue-confetti')])
 
-        this.resetFormData()
-        this.$emit('completed')
-        const confetti = new Confetti()
-        confetti.start({})
-        setTimeout(() => confetti.stop(), 5000)
-      } catch ({ response }) {
-        const { data: { message } } = response
-        this.error = message
-        this.loading = false
+      if (error) {
+        this.handleError((error && error.message) || error)
+        return
       }
+
+      this.loading = false
+
+      this.resetFormData()
+      this.$emit('completed')
+      const confetti = new Confetti()
+      confetti.start({})
+      setTimeout(() => confetti.stop(), 5000)
+    },
+    handleError (errorMessage) {
+      this.error = errorMessage
+      this.loading = false
     }
   },
   stripeKey: process.env.stripePublicKey

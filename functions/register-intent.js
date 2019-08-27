@@ -21,16 +21,13 @@ exports.handler = async (event) => {
     const params = JSON.parse(event.body)
     const missingAttrs = !params
       ? ['all']
-      : ['token', 'amount', 'donationType', 'email', 'message'].filter(k => !Object.keys(params).includes(k))
+      : ['amount', 'donationType', 'email', 'message'].filter(k => !Object.keys(params).includes(k))
     if (missingAttrs.length) {
-      if (missingAttrs.includes('token')) {
-        return errorFn('Your card details are wrong', 422)
-      }
       return errorFn('The following attributes are missing ' + missingAttrs, 422)
     }
     console.log('Entered the zone')
 
-    const { token, amount, donationType, email, message } = params
+    const { amount, donationType, email, message } = params
 
     try {
       const { data } = await stripe.customers.list({
@@ -41,14 +38,13 @@ exports.handler = async (event) => {
       const isCustomerKnown = data.length
       try {
         const customer = isCustomerKnown ? data[0] : await stripe.customers.create({
-          email,
-          source: token.id
+          email
         })
 
         console.log('Custom is ready, id ' + customer.id)
 
         try {
-          await stripe.charges.create({
+          const paymentIntent = await stripe.paymentIntents.create({
             amount,
             currency: 'eur',
             description: 'Donation',
@@ -57,11 +53,11 @@ exports.handler = async (event) => {
             metadata: { donation_type: donationType, message }
           })
 
-          console.log('Charged!')
+          console.log('Intent created!')
 
-          return { statusCode: 200, body: 'All good!' }
+          return { statusCode: 200, body: JSON.stringify({ secret: paymentIntent.client_secret }) }
         } catch (e) {
-          return errorFn('Something went wrong while charging', 500, e)
+          return errorFn('Something went wrong while creating the payment intent', 500, e)
         }
       } catch (e) {
         return errorFn('Something went wrong while creating the donator', 500, e)
