@@ -1,5 +1,5 @@
 <template>
-  <form id="donationform" class="flex flex-col" @submit.prevent="pay">
+  <form id="donationform" class="flex flex-col" @submit.prevent="handlePayment">
     <h2 class="text-center text-3xl md:text-4xl mt-8 py-10">
       Please enter your credit card details
     </h2>
@@ -87,15 +87,22 @@ export default {
       email: ''
     }
   },
+  computed: {
+    amountInCents () {
+      return this.amount * 100
+    }
+  },
   watch: {
     donationType (type) {
       if (!type) {
         return
       }
+
       if (type.price === -1) {
         this.amount = undefined
         return
       }
+
       this.amount = Number(type.price / 100).toFixed(2)
       setTimeout(() => this.$refs.email.focus(), 250)
     }
@@ -112,7 +119,15 @@ export default {
       this.error = false
       this.invalid = []
     },
-    async pay () {
+    handlePayment () {
+      const isFormValid = this.validateForm()
+      if (!isFormValid) {
+        return
+      }
+
+      this.charge()
+    },
+    validateForm () {
       if (this.loading) {
         return false
       }
@@ -125,9 +140,7 @@ export default {
         this.invalid.push(['amount'])
       }
 
-      const { token } = await createToken()
-      const { email, message, amount: cents } = this
-      const amount = cents * 100
+      const { amountInCents: amount } = this
 
       if (this.invalid.length) {
         this.error = 'The form is not filled correctly. The amount is set wrong.'
@@ -144,6 +157,11 @@ export default {
         return
       }
 
+      return true
+    },
+    async charge () {
+      const { token } = await createToken()
+      const { email, message, amountInCents: amount } = this
       this.loading = true
 
       try {
