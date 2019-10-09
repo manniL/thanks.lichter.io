@@ -1,10 +1,13 @@
 <template>
-  <form id="donationform" class="flex flex-col" @submit.prevent="handlePayment">
-    <h2 class="text-center text-3xl md:text-4xl mt-8 py-10">
+  <form id="donationform" class="flex flex-col" @submit.prevent="handleCreditCardPayment">
+    <h2 class="text-center text-3xl md:text-4xl mt-8 pt-10">
       Please enter your credit card details
     </h2>
+    <p class="pt-2 text-grey-darker">
+      Don't worry. Payments are processed through Stripe
+    </p>
 
-    <label class="text-md md:text-xl py-4 flex flex-col md:flex-row justify-between items-center">
+    <label class="text-md md:text-xl pt-12 py-4 flex flex-col md:flex-row justify-between items-center">
       <span class="font-bold">
         Donation Amount (in Euro):
       </span>
@@ -40,6 +43,19 @@
         placeholder="<3"
       >
     </label>
+
+    <ClientOnly>
+      <PaymentButton
+        v-if="canRenderPaymentButton"
+        class="mt-8"
+        :stripe="stripeInstance"
+        :options="paymentButtonOptions"
+        @available="setPaymentButtonAvailability"
+        @receivedPaymentMethod="handlePaymentButtonPayment"
+      />
+      <span v-if="isPaymentButtonAvailable && canRenderPaymentButton" class="text-grey-darker py-4">or enter your credit card info below</span>
+    </ClientOnly>
+
     <span class="text-md md:hidden mt-8 font-bold">
       Credit Card Info
     </span>
@@ -49,14 +65,11 @@
       class="rounded px-4 py-2 border border-grey-light mt-2 bg-white shadow-inner text-grey-darkest"
       @change="complete = $event.complete"
     />
-    <p class="text-sm text-grey-darker mt-2">
-      Don't worry. Payments are processed through Stripe
-    </p>
     <p v-if="error" class="text-lg text-red-dark my-5" v-text="error" />
 
-    <button class="bg-green hover:bg-green-light px-16 py-4 rounded-full text-white text-2xl w-auto mx-auto shadow-lg border border-green-light mt-8">
+    <button class="bg-green hover:bg-green-light w-full py-2 text-white text-lg w-auto mx-auto shadow-lg border border-green-light mt-8">
       <span v-if="!loading">
-        Donate ❤️
+        Donate {{ isPaymentButtonAvailable ? 'via credit card' : '' }} ❤️
       </span>
       <span v-else class="cp-spinner cp-meter h-16 w-16" />
     </button>
@@ -64,10 +77,12 @@
 </template>
 
 <script>
-import { Card, handleCardPayment } from 'vue-stripe-elements-plus'
+import { Card, handleCardPayment, instance } from 'vue-stripe-elements-plus'
+import PaymentButton from '@/components/PaymentButton'
 
 export default {
   components: {
+    PaymentButton,
     Card
   },
   props: {
@@ -84,12 +99,42 @@ export default {
       loading: false,
       error: false,
       invalid: [],
-      email: ''
+      email: '',
+      stripeInstance: null,
+      isPaymentButtonAvailable: false
     }
   },
   computed: {
     amountInCents () {
-      return this.amount * 100
+      return Number(this.amount).toFixed(2) * 100
+    },
+    canRenderPaymentButton () {
+      if (!this.stripeInstance) {
+        return false
+      }
+
+      if (!this.amountInCents) {
+        return false
+      }
+
+      return true
+    },
+    paymentButtonOptions () {
+      return {
+        paymentRequest: {
+          country: 'DE',
+          currency: 'eur',
+          total: {
+            label: `Donation to Alexander Lichter`,
+            amount: this.amountInCents
+          }
+        },
+        style: {
+          paymentRequestButton: {
+            type: 'donate'
+          }
+        }
+      }
     }
   },
   watch: {
@@ -107,6 +152,9 @@ export default {
       setTimeout(() => this.$refs.email.focus(), 250)
     }
   },
+  mounted () {
+    this.stripeInstance = instance
+  },
   methods: {
     resetFormData () {
       this.resetFormState()
@@ -119,13 +167,29 @@ export default {
       this.error = false
       this.invalid = []
     },
-    handlePayment () {
+    handleCreditCardPayment () {
       const isFormValid = this.validateForm()
       if (!isFormValid) {
         return
       }
 
-      this.charge()
+      this.chargeCreditCard()
+    },
+    async handlePaymentButtonPayment ({ complete, paymentMethod }) {
+      this.loading = true
+      const { secret } = await this.createIntent()
+      const { error: confirmError } = await instance.confirmPaymentIntent(secret, {
+        payment_method: paymentMethod.id
+      })
+
+      if (confirmError) {
+        complete('fail')
+        return
+      }
+
+      complete('success')
+
+      this.handleCardPayment(secret, true)
     },
     validateForm () {
       if (this.loading) {
@@ -159,11 +223,21 @@ export default {
 
       return true
     },
-    async charge () {
+    async chargeCreditCard () {
       this.loading = true
+
+      try {
+        const { secret } = await this.createIntent()
+        this.handleCardPayment(secret)
+      } catch (error) {
+        console.error(error)
+        this.handleError('Could not create intent')
+      }
+    },
+    createIntent () {
       const { email, message, amountInCents: amount } = this
 
-      const { secret } = await this.$axios.$post('register-intent', {
+      return this.$axios.$post('register-intent', {
         amount,
         donationType: this.donationType.slug,
         email,
@@ -173,7 +247,10 @@ export default {
           'Content-Type': 'application/json'
         }
       })
-      const [{ error }, { Confetti }] = await Promise.all([handleCardPayment(secret), import('vue-confetti')])
+    },
+    async handleCardPayment (secret, useFreshInstance = false) {
+      const handleFn = useFreshInstance ? instance.handleCardPayment : handleCardPayment
+      const [{ error }, { Confetti }] = await Promise.all([handleFn(secret), import('vue-confetti')])
 
       if (error) {
         this.handleError((error && error.message) || error)
@@ -191,6 +268,9 @@ export default {
     handleError (errorMessage) {
       this.error = errorMessage
       this.loading = false
+    },
+    setPaymentButtonAvailability (isAvailable) {
+      this.isPaymentButtonAvailable = isAvailable
     }
   },
   stripeKey: process.env.stripePublicKey
