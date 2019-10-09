@@ -79,6 +79,7 @@
 <script>
 import { Card, handleCardPayment, instance } from 'vue-stripe-elements-plus'
 import PaymentButton from '@/components/PaymentButton'
+import error from '@/layouts/error'
 
 export default {
   components: {
@@ -184,6 +185,7 @@ export default {
 
       if (confirmError) {
         complete('fail')
+        this.handleError(confirmError.message)
         return
       }
 
