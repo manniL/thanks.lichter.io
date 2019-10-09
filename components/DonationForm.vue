@@ -79,7 +79,6 @@
 <script>
 import { Card, handleCardPayment, instance } from 'vue-stripe-elements-plus'
 import PaymentButton from '@/components/PaymentButton'
-import error from '@/layouts/error'
 
 export default {
   components: {
@@ -179,19 +178,22 @@ export default {
     async handlePaymentButtonPayment ({ complete, paymentMethod }) {
       this.loading = true
       const { secret } = await this.createIntent()
-      const { error: confirmError } = await instance.confirmPaymentIntent(secret, {
-        payment_method: paymentMethod.id
-      })
+      try {
+        const { error: confirmError } = await instance.confirmPaymentIntent(secret, {
+          payment_method: paymentMethod.id
+        })
 
-      if (confirmError) {
-        complete('fail')
-        this.handleError(confirmError.message)
-        return
+        if (confirmError) {
+          complete('fail')
+          this.handleError(confirmError.message)
+          return
+        }
+
+        complete('success')
+        this.handleCardPayment(secret, true)
+      } catch (e) {
+        this.handleError(e.message)
       }
-
-      complete('success')
-
-      this.handleCardPayment(secret, true)
     },
     validateForm () {
       if (this.loading) {
@@ -232,6 +234,7 @@ export default {
         const { secret } = await this.createIntent()
         this.handleCardPayment(secret)
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error(error)
         this.handleError('Could not create intent')
       }
