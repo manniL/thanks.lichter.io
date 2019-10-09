@@ -8,17 +8,17 @@
   "scripts": {
     "dev": "nuxt",
     "generate": "nuxt generate && yarn lambda-build",
-    "lambda-dev": "NODE_ENV=development yarn lambda-build && NODE_ENV=development yarn lambda-serve",
+    "lambda-dev": "cross-env NODE_ENV=development yarn lambda-build && cross-env NODE_ENV=development yarn lambda-serve",
     "lambda-build": "netlify-lambda build ./functions",
     "lambda-serve": "netlify-lambda serve ./functions",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.6.0",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
     "@nuxtjs/tailwindcss": "^1.1.2",
     "consola": "^2.10.1",
+    "cross-env": "^6.0.3",
     "nuxt-edge": "^2.10.0-26175435.15fa12fc",
     "nuxt-purgecss": "^0.2.1",
     "nuxt-svg-loader": "^1.0.1",
