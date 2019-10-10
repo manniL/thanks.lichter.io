@@ -1,7 +1,5 @@
-[build]
-  publish = "dist"
-  command = "yarn generate"
-  functions = "./functions-dist"
-[build.environment]
-  NODE_VERSION = "10"
-  YARN_VERSION = "1.12.3"
+[[redirects]]
+  from = "/*"
+  to = "https://www.lichter.io/support-me/"
+  status = 301
+  force = true
